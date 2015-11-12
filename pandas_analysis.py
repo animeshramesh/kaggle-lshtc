@@ -7,11 +7,11 @@ import getter, writer, rocchio
 zero_idf = 5.0 + math.log(2365436)
 
 
-label_index = getter.get_label_index()
-doc_tfidf = getter.get_doc_tfidf()
+# label_index = getter.get_label_index()
+# doc_tfidf = getter.get_doc_tfidf()
 
-centroids = rocchio.get_centroids(label_index, doc_tfidf)
-writer.write_centroids(centroids)
+# centroids = rocchio.get_centroids(label_index, doc_tfidf)
+# writer.write_centroids(centroids)
 
 
 
