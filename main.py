@@ -27,4 +27,7 @@ if __name__ == "__main__":
 	tfidf_vectors = document.compute_tfidf(conn)
 	document.write_tfidf_vectors_to_db(tfidf_vectors, conn)
 
+	# Compute and write centroids of labels to db
+	label.write_label_centroids(conn)
+
 	conn.close()
