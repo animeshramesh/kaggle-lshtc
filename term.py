@@ -1,28 +1,36 @@
 import sqlite3
 from collections import defaultdict
 import math
+import time
 
 
 # term1 -> doc1, doc2, ... docn
 def write_terms_to_db(conn):
-	terms = defaultdict(list)
+	terms = defaultdict(str)
 	c = conn.cursor()
 	print "Creating term index now. [term1] -> [doc1, doc2, ... docn]"
+	i = 1
 	for doc in c.execute("SELECT * FROM docs"):
 		doc_id = doc[0]
 		freq_info = doc[2].split()
 		for each_item in freq_info:
 			term_id = each_item.split(":")[0]
-			terms[term_id] = doc_id
+			terms[term_id] = terms[term_id] +  doc_id + " "
+		i += 1
+		if i % 100000 == 0:
+			print str(i) + "terms made"
+			time.sleep(100)
+
 
 	print "Terms created. Writing to db now."
-
 	for term, docs in terms.iteritems():
-		docs_text = ""
-		for each_doc in docs:
-			docs_text += each_doc
-		docs_text = docs_text[:-1]
-		c.execute("INSERT INTO terms VALUES ('%s','%s', -1)" % (term, docs_text))
+#		docs_text = ""
+#                for each_docs in docs:
+#                        docs_text += each_docs + " "
+#                docs_text = docs_text[:-1]
+#		c.execute("INSERT INTO terms VALUES ('%s','%s', -1)" % (term, docs[:-1]))
+		print term, " ", docs[:-1]
+		i += 1
 	conn.commit()
 	print "Terms successfully written to db"
 
