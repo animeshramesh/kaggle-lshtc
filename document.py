@@ -103,3 +103,26 @@ def write_docs_to_db(path_to_csv):
 			print str(j) + " documents tfidf vector computed"
 	end_time = time.clock()
 	print "Time taken to compute tfidf " + str(end_time-start_time) + " seconds"
+
+
+def labelDenominator():
+	time1 = time.time()
+	count = 0
+	for label in db.labels.find(modifiers={"$snapshot": True}):
+                label_denominator = 1.0
+                for term,label_tfidf in label['centroid'].iteritems():
+                        label_denominator += float(str(label_tfidf))*float(str(label_tfidf))
+		db.labels.update_one(
+			{'_id' : label['_id']},
+			{
+				'$set': {
+					'label_denominator' : math.sqrt(label_denominator)
+				}
+			}
+		)
+		count += 1
+		if count % 10000 == 0:
+			print count	
+	print "Time: ",time.time()-time1
+
+labelDenominator()
