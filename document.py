@@ -100,6 +100,7 @@ def write_docs_to_db(path_to_csv):
 		)
 		j += 1
 		if j%100000==0:
+
 			print str(j) + " documents tfidf vector computed"
 	end_time = time.clock()
 	print "Time taken to compute tfidf " + str(end_time-start_time) + " seconds"
@@ -124,5 +125,3 @@ def labelDenominator():
 		if count % 10000 == 0:
 			print count	
 	print "Time: ",time.time()-time1
-
-labelDenominator()

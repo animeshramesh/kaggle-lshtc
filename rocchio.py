@@ -4,6 +4,7 @@ from collections import defaultdict
 import time
 import cPickle
 import os
+import redis
 
 '''
 def get_centroids(label_index, doc_tfidf):
@@ -30,7 +31,7 @@ def ncc(test_doc):
 	count = 0
 	for term,tf in test_doc.iteritems():
 		test_denominator += tf*tf
-	for label in db.labels.find().batch_size(6000):
+	for label in db.labels.find().batch_size(5000):
 		cosine = 0.0
 		label_denominator = label['label_denominator']
 		for term,tf in test_doc.iteritems():
@@ -45,8 +46,8 @@ def ncc(test_doc):
 				break
 			del res[toRemove]
 		count += 1
-#		if count % 10000 == 0:
-#			print count
+		if count % 10000 == 0:
+			print count
 	print "TIME: ",time.time()-time1
 	return res
 
