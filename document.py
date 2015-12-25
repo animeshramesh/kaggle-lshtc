@@ -1,8 +1,6 @@
 from pymongo import MongoClient
 from collections import defaultdict
-import time
-import csv
-import math
+import time, csv, math
 
 client = MongoClient(connect=False)
 db = client.kaggle

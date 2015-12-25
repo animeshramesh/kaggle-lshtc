@@ -1,6 +1,5 @@
 import sys
 import document, centroid
-import database
 
 
 # Give path to CSV file as argument
